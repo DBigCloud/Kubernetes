@@ -1,0 +1,9 @@
+# Script to install a Kubernetes Cluster with nodes
+## Instructions
+1. Install a master: Run this script in the master.\
+`./install.sh -m || --master`
+2. Get the unique string from kubeadm init command from the master
+3. Install a node: Run this script for each node, **use the unique string**\
+`./install.sh -n sdadsaddsdds14s5d46sd2a1sd3a5sd46a5sd4a2sdas5d4asd`
+4. For help: \
+`./install.sh -h || --help`
