@@ -1,4 +1,4 @@
-# Script to install a Kubernetes Cluster with nodes
+# Script to install a Kubernetes Cluster with nodes in Ubuntu 18.04 Bionic Beaver
 ## Instructions
 1. Install a master: Run this script in the master.\
 `./install.sh -m || --master`
