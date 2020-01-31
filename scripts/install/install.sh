@@ -13,7 +13,7 @@ then
     		TOKEN=$2
     		echo "is a Node $IsMaster"
     	else
-    		echo "You need pass your unique string from the kubeadm init command getting from the master node"
+    		echo "You need pass the discovery-token-ca-cert-hash getting from the master node"
     		echo "Example: ./install.sh -n sdadsaddsdds14s5d46sd2a1sd3a5sd46a5sd4a2sdas5d4asd"
     		exit 0
     	fi
@@ -25,7 +25,7 @@ then
     then
     	echo "** Instructions **"
     	echo "1 - Install a master: ./install.sh -m||--master"
-    	echo "2 - Get the kubeadm init command from the master"
+    	echo "2 - Get the the discovery-token-ca-cert-hash from the master"
     	echo "3 - Install a node ./install.sh -n sdadsaddsdds14s5d46sd2a1sd3a5sd46a5sd4a2sdas5d4asd"
     	exit 0
     else
