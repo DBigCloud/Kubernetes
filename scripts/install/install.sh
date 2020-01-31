@@ -74,7 +74,6 @@ sudo sysctl -p
 if [ $IsMaster -eq 1 ]
 then
 	sudo swapoff -a
-	sudo swapoff -ased -i '/ swap / s/^/#/' /etc/fstab
 	sudo hostnamectl set-hostname kubernetes-master
 	sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 fi
