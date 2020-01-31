@@ -7,33 +7,34 @@ if [ $# -gt 0 ]
 then
     if [ "$1" == "-n" ] || [ "$1" == "--node" ]
     then
-    	if [ $# -eq 2 ]
+    	if [ $# -eq 5 ]
     	then
     		IsMaster=0
-    		TOKEN=$2
-    		echo "is a Node $IsMaster"
+			NAME=$2
+			MASTERIP=$3
+			TOKEN=$4
+			HASH=$5
     	else
-    		echo "You need pass the discovery-token-ca-cert-hash getting from the master node"
-    		echo "Example: ./install.sh -n sdadsaddsdds14s5d46sd2a1sd3a5sd46a5sd4a2sdas5d4asd"
+    		echo "You need to set the Node Name, MASTERIP and pass the token master and the discovery-token-ca-cert-hash getting from the master node"
+    		echo "Example: ./install.sh -n NODE-NAME 192.168.1.1 adergk6.khj016e179rnmbas sdadsaddsdds14s5d46sd2a1sd3a5sd46a5sd4a2sdas5d4asd"
     		exit 0
     	fi
     elif [ "$1" == "-m" ] || [ "$1" == "--master" ]
     then
     	IsMaster=1
-    	echo "is a Master $IsMaster"
     elif [ "$1" == "-h" ] || [ "$1" == "--help" ]
     then
     	echo "** Instructions **"
-    	echo "1 - Install a master: ./install.sh -m||--master"
-    	echo "2 - Get the the discovery-token-ca-cert-hash from the master"
-    	echo "3 - Install a node ./install.sh -n sdadsaddsdds14s5d46sd2a1sd3a5sd46a5sd4a2sdas5d4asd"
+    	echo "1 - Install the master: ./install.sh -m||--master"
+    	echo "2 - You need to set the Node Name, MASTERIP and pass the token master and the discovery-token-ca-cert-hash getting from the master node"
+    	echo "3 - ./install.sh -n NODE-NAME 192.168.1.1 adergk6.khj016e179rnmbas sdadsaddsdds14s5d46sd2a1sd3a5sd46a5sd4a2sdas5d4asd"
     	exit 0
     else
     	echo "install.sh [-n|--node or -m|--master]"
     	exit 0
     fi
 else
-	echo "install.sh [-n|--node + TOKEN or -m|--master]"
+	echo "install.sh [-n|--node + NODE-NAME + TOKEN or -m|--master]"
 	exit 0
 fi
 
@@ -72,6 +73,9 @@ sudo sysctl -p
 #Initialize the cluster (run only on the master):
 if [ $IsMaster -eq 1 ]
 then
+	sudo swapoff -a
+	sudo swapoff -ased -i '/ swap / s/^/#/' /etc/fstab
+	sudo hostnamectl set-hostname kubernetes-master
 	sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 fi
 
@@ -86,7 +90,9 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 #Join the worker nodes to the cluster:
 if [ $IsMaster -eq 0 ]
 then
-  sudo kubeadm join $TOKEN
+	sudo hostnamectl set-hostname $NAME
+	sudo kubeadm join $MASTERIP:6443 --token $TOKEN --discovery-token-ca-cert-hash $HASH
+
 fi
 
 #Verify the worker nodes have joined the cluster successfully:
