@@ -15,7 +15,7 @@
 7. For help: \
 `./install.sh -h || --help`
 8. Check the cluster
-`kubectl get nodes`
+`kubectl get nodes`\
 ![Alt text](img/nodes.png?raw=true "Check the cluste")
 
 
