@@ -16,7 +16,7 @@ then
 			HASH=$5
     	else
     		echo "You need to set the Node Name, MASTERIP and pass the token master and the discovery-token-ca-cert-hash getting from the master node"
-    		echo "Example: ./install.sh -n kubernetes-node01 01 172.31.26.148 v320m9.x4lb0hayszu6n9fo 3c32be01539a52f642bb664b1a85dbca619bb82459bb24514f0c203fa786623b"
+    		echo "Example: ./install.sh -n kubernetes-node01 172.31.26.148 v320m9.x4lb0hayszu6n9fo 3c32be01539a52f642bb664b1a85dbca619bb82459bb24514f0c203fa786623b"
     		exit 0
     	fi
     elif [ "$1" == "-m" ] || [ "$1" == "--master" ]
@@ -79,14 +79,11 @@ then
     mkdir -p $HOME/.kube
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
-fi
+    #Apply Flannel CNI network overlay:
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
-#Apply Flannel CNI network overlay:
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-
-#Join the worker nodes to the cluster:
-if [ $IsMaster -eq 0 ]
-then
+else
+    #Join the worker nodes to the cluster:
 	sudo hostnamectl set-hostname $NAME
 	sudo kubeadm join $MASTERIP:6443 --token $TOKEN --discovery-token-ca-cert-hash $HASH
 fi
