@@ -16,7 +16,7 @@ then
 			HASH=$5
     	else
     		echo "You need to set the Node Name, MASTERIP and pass the token master and the discovery-token-ca-cert-hash getting from the master node"
-    		echo "Example: ./install.sh -n kubernetes-node01 172.31.26.148 v320m9.x4lb0hayszu6n9fo 3c32be01539a52f642bb664b1a85dbca619bb82459bb24514f0c203fa786623b"
+    		echo "Example: ./install.sh -n kubernetes-node01 172.31.26.148 v320m9.x4lb0hayszu6n9fo sha256:3c32be01539a52f642bb664b1a85dbca619bb82459bb24514f0c203fa786623b"
     		exit 0
     	fi
     elif [ "$1" == "-m" ] || [ "$1" == "--master" ]
@@ -27,7 +27,7 @@ then
     	echo "** Instructions **"
     	echo "1 - Install the master: ./install.sh -m||--master"
     	echo "2 - You need to set the Node Name, MASTERIP and pass the token master and the discovery-token-ca-cert-hash getting from the master node"
-    	echo "3 - ./install.sh -n kubernetes-node01 192.168.1.1 v320m9.x4lb0hayszu6n9fo 3c32be01539a52f642bb664b1a85dbca619bb82459bb24514f0c203fa786623b"
+    	echo "3 - ./install.sh -n kubernetes-node01 192.168.1.1 v320m9.x4lb0hayszu6n9fo sha256:3c32be01539a52f642bb664b1a85dbca619bb82459bb24514f0c203fa786623b"
     	exit 0
     else
     	echo "install.sh [-n|--node or -m|--master]"
@@ -87,8 +87,5 @@ else
 	sudo hostnamectl set-hostname $NAME
 	sudo kubeadm join $MASTERIP:6443 --token $TOKEN --discovery-token-ca-cert-hash $HASH
 fi
-
-#Verify the worker nodes have joined the cluster successfully:
-kubectl get nodes
 
 
