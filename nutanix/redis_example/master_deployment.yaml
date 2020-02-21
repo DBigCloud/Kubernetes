@@ -1,0 +1,22 @@
+# Paste it in Nutanix Calm blueprint editor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: backend
+      app: redis
+      role: master
+  template:
+    metadata:
+      labels:
+        tier: backend
+        app: redis
+        role: master
+      namespace: dbigcloud
+      name: redis_master
+    spec: {}
+metadata:
+  labels:
+    app: redis
+  namespace: dbigcloud
+  name: redis-master
