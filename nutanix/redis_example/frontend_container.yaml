@@ -1,0 +1,9 @@
+ports:
+  - protocol: TCP
+    containerPort: 80
+env:
+  - name: GET_HOSTS_FROM
+    value: dns
+name: php-redis
+image: 'gcr.io/google-samples/gb-frontend:v4'
+imagePullPolicy: Always
