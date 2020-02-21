@@ -1,0 +1,6 @@
+ports:
+  - protocol: TCP
+    containerPort: 6379
+name: master
+image: 'k8s.gcr.io/redis:e2e'
+imagePullPolicy: Always
