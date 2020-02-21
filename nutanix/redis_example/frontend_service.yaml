@@ -1,0 +1,13 @@
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    tier: frontend
+    app: guestbook
+metadata:
+  labels:
+    tier: frontend
+    app: guestbook
+  namespace: dbigcloud
+  name: frontend
