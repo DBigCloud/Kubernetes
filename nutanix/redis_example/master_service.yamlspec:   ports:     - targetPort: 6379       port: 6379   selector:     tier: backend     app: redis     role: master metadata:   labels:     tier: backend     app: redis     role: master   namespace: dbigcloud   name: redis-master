@@ -1,0 +1,15 @@
+spec:
+  ports:
+    - targetPort: 6379
+      port: 6379
+  selector:
+    tier: backend
+    app: redis
+    role: master
+metadata:
+  labels:
+    tier: backend
+    app: redis
+    role: master
+  namespace: dbigcloud
+  name: redis-master
