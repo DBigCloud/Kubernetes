@@ -1,0 +1,19 @@
+spec:
+  selector:
+    matchLabels:
+      tier: frontend
+      app: guestbook
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        app: guestbook
+      namespace: dbigcloud
+      name: frontend
+    spec: {}
+metadata:
+  labels:
+    app: guestbook
+  namespace: dbigcloud
+  name: frontend
