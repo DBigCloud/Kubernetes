@@ -1,0 +1,9 @@
+ports:
+  - protocol: TCP
+    containerPort: 6379
+env:
+  - name: GET_HOSTS_FROM
+    value: dns
+name: slave-redis
+image: 'gcr.io/google_samples/gb-redisslave:v3'
+imagePullPolicy: Always
