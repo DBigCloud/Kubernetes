@@ -1,0 +1,14 @@
+spec:
+  ports:
+    - port: 6379
+  selector:
+    app: redis
+    role: slave
+    tier: backend
+metadata:
+  name: redis-slave
+  namespace: dbigcloud
+  labels:
+    app: redis
+    role: slave
+    tier: backend
