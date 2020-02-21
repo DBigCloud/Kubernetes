@@ -1,0 +1,20 @@
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: backend
+      app: redis
+      role: slave
+  template:
+    metadata:
+      labels:
+        tier: backend
+        app: redis
+        role: slave
+      namespace: dbigcloud
+    spec: {}
+metadata:
+  labels:
+    app: redis
+  namespace: dbigcloud
+  name: redis-slave
