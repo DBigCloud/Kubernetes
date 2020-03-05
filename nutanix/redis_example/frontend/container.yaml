@@ -7,3 +7,9 @@ env:
 name: php-redis
 image: 'gcr.io/google-samples/gb-frontend:v4'
 imagePullPolicy: Always
+livenessProbe:
+  initialDelaySeconds: 3
+  httpGet:
+    path: /
+    port: 80
+  periodSeconds: 3
