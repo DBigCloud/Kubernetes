@@ -7,3 +7,9 @@ env:
 name: slave-redis
 image: 'gcr.io/google_samples/gb-redisslave:v3'
 imagePullPolicy: Always
+livenessProbe:
+  initialDelaySeconds: 15
+  tcpSocket:
+    port: 6379
+  periodSeconds: 20
+
