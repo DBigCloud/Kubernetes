@@ -4,3 +4,8 @@ ports:
 name: master
 image: 'k8s.gcr.io/redis:e2e'
 imagePullPolicy: Always
+livenessProbe:
+  initialDelaySeconds: 15
+  tcpSocket:
+    port: 6379
+  periodSeconds: 20
